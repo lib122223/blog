@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useScrollSpy } from '../hooks/useScrollSpy'
+import LanguageSwitch from './LanguageSwitch'
 
 const NAV_ITEMS = [
   { id: 'hero', label: 'Home' },
@@ -50,6 +51,9 @@ export default function Navbar() {
               </button>
             </li>
           ))}
+          <li>
+            <LanguageSwitch />
+          </li>
         </ul>
 
         {/* Hamburger button */}
@@ -102,6 +106,9 @@ export default function Navbar() {
                     </button>
                   </li>
                 ))}
+                <li>
+                  <LanguageSwitch />
+                </li>
               </ul>
             </motion.div>
           </motion.div>

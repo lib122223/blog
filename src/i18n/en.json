@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Full-Stack Developer",
+    "bio": "Passionate about building elegant, performant web applications with React, Node.js, and cloud-native technologies."
+  },
+  "skills": {
+    "title": "Skills",
+    "backend": "Backend",
+    "frontend": "Frontend",
+    "tools": "Tools"
+  },
+  "projects": {
+    "title": "Projects",
+    "source": "Source",
+    "demo": "Demo"
+  },
+  "contact": {
+    "title": "Contact"
+  }
+}
