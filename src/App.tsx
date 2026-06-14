@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import BackToTop from './components/BackToTop'
+import SEO from './components/SEO'
 import Hero from './sections/Hero/Hero'
 import Projects from './sections/Projects/Projects'
 import Skills from './sections/Skills/Skills'
@@ -18,6 +19,7 @@ export default function App() {
   if (!ready) {
     return (
       <>
+        <SEO />
         <Navbar />
         <main className="max-w-3xl mx-auto px-5">
           <HeroSkeleton />
@@ -30,6 +32,7 @@ export default function App() {
 
   return (
     <>
+      <SEO />
       <Navbar />
       <main className="max-w-3xl mx-auto px-5">
         <Hero />
