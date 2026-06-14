@@ -1,7 +1,12 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { profile } from '../../data/profile'
 
+type Lang = 'zh' | 'en'
+
 export default function Hero() {
+  const { i18n } = useTranslation()
+  const lang = i18n.language as Lang
   const [imgFailed, setImgFailed] = useState(false)
 
   return (
@@ -26,28 +31,16 @@ export default function Hero() {
       </h1>
 
       <p className="text-base md:text-lg text-text-secondary mb-6">
-        {profile.title.zh}
+        {profile.title[lang]}
       </p>
 
       <p className="text-sm md:text-base text-text-secondary max-w-[600px] text-center leading-relaxed">
-        {profile.bio.zh}
+        {profile.bio[lang]}
       </p>
 
       <div className="absolute bottom-8 animate-bounce">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12 5v14M12 19l-5-5M12 19l5-5"
-            stroke="#9d9dab"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5v14M12 19l-5-5M12 19l5-5" stroke="#9d9dab" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
     </section>

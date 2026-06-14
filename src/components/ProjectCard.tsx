@@ -1,11 +1,17 @@
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import type { Project } from '../types'
+
+type Lang = 'zh' | 'en'
 
 interface Props {
   project: Project
 }
 
 export default function ProjectCard({ project }: Props) {
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language as Lang
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
@@ -28,7 +34,7 @@ export default function ProjectCard({ project }: Props) {
         </h3>
 
         <p className="text-sm text-text-secondary mb-4 leading-relaxed">
-          {project.description.zh}
+          {project.description[lang]}
         </p>
 
         <div className="flex flex-wrap gap-2 mb-5">
@@ -44,23 +50,13 @@ export default function ProjectCard({ project }: Props) {
 
         <div className="flex gap-4 text-sm">
           {project.sourceUrl && (
-            <a
-              href={project.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              源码
+            <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+              {t('projects.source')}
             </a>
           )}
           {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              演示
+            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+              {t('projects.demo')}
             </a>
           )}
         </div>

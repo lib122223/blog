@@ -5,10 +5,6 @@
     "skills": "技能",
     "contact": "联系"
   },
-  "hero": {
-    "title": "全栈开发者",
-    "bio": "热爱构建优雅、高性能的 Web 应用，专注于 React、Node.js 和云原生技术。"
-  },
   "skills": {
     "title": "技能",
     "backend": "后端",

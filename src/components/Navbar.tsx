@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import LanguageSwitch from './LanguageSwitch'
 
-const NAV_ITEMS = [
-  { id: 'hero', label: 'Home' },
-  { id: 'projects', label: '项目' },
-  { id: 'skills', label: '技能' },
-  { id: 'contact', label: '联系' },
-]
+const NAV_KEYS = ['home', 'projects', 'skills', 'contact'] as const
 
 export default function Navbar() {
+  const { t } = useTranslation()
   const activeId = useScrollSpy()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -39,15 +36,15 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-6">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.id}>
+          {NAV_KEYS.map((key) => (
+            <li key={key}>
               <button
-                onClick={() => handleClick(item.id)}
+                onClick={() => handleClick(key)}
                 className={`text-sm font-medium transition-colors duration-200 hover:text-accent ${
-                  activeId === item.id ? 'text-accent' : 'text-text-secondary'
+                  activeId === key ? 'text-accent' : 'text-text-secondary'
                 }`}
               >
-                {item.label}
+                {t(`nav.${key}`)}
               </button>
             </li>
           ))}
@@ -94,15 +91,15 @@ export default function Navbar() {
               className="absolute top-0 right-0 w-64 h-full bg-bg-elevated border-l border-bg-divider pt-8"
             >
               <ul className="flex flex-col gap-6 px-8">
-                {NAV_ITEMS.map((item) => (
-                  <li key={item.id}>
+                {NAV_KEYS.map((key) => (
+                  <li key={key}>
                     <button
-                      onClick={() => handleClick(item.id)}
+                      onClick={() => handleClick(key)}
                       className={`text-base font-medium transition-colors duration-200 hover:text-accent ${
-                        activeId === item.id ? 'text-accent' : 'text-text-secondary'
+                        activeId === key ? 'text-accent' : 'text-text-secondary'
                       }`}
                     >
-                      {item.label}
+                      {t(`nav.${key}`)}
                     </button>
                   </li>
                 ))}

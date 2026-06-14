@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next'
 import { profile } from '../../data/profile'
 
 export default function Contact() {
+  const { t } = useTranslation()
+
   return (
     <section id="contact" className="py-20 scroll-mt-14 text-center">
       <h2 className="font-mono text-[22px] md:text-[28px] font-semibold text-text-primary mb-12">
-        联系
+        {t('contact.title')}
       </h2>
 
       <a
