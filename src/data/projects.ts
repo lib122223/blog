@@ -11,7 +11,7 @@ export const projects: Project[] = [
     thumbnail: '/projects/portfolio-thumb.jpg',
     techTags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
     sourceUrl: 'https://github.com/lib122223/blog',
-    demoUrl: 'https://your-domain.vercel.app',
+    demoUrl: 'https://blog-lib122224.vercel.app',
     detail: {
       background: {
         zh: '需要一个展示全栈开发能力的个人网站，面向招聘方和技术合作者。',

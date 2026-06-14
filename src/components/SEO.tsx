@@ -25,7 +25,7 @@ export default function SEO() {
       link={[
         {
           rel: 'canonical',
-          href: 'https://your-domain.vercel.app',
+          href: 'https://blog-lib122224.vercel.app',
         },
       ]}
     />
