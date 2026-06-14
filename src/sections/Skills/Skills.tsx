@@ -8,9 +8,7 @@ const categories = ['backend', 'frontend', 'tools'] as const
 
 const container = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.05 },
-  },
+  show: { transition: { staggerChildren: 0.05 } },
 }
 
 const item = {
