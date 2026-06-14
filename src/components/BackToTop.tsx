@@ -32,7 +32,7 @@ export default function BackToTop() {
       >
         <path
           d="M10 17V5M10 5L5 10M10 5L15 10"
-          stroke="#0a0a0f"
+          stroke="#ffffff"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -54,9 +54,12 @@ export default function Hero() {
           {profile.bio[lang]}
         </p>
 
-        <div className="absolute bottom-8 animate-bounce">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 5v14M12 19l-5-5M12 19l5-5" stroke="#9d9dab" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <div className="absolute bottom-8 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-xs text-text-muted">
+            {lang === 'zh' ? '向下滚动' : 'Scroll'}
+          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M12 19l-5-5M12 19l5-5" stroke="#aeaeb2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </section>

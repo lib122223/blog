@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence } from 'framer-motion'
 import { useEditableProjects } from '../../hooks/useEditableProjects'
-import ProjectCard from '../../components/ProjectCard'
+import ProjectCarousel from '../../components/ProjectCarousel'
 import ProjectDetail from './ProjectDetail'
 import ProjectEditor from '../../components/ProjectEditor'
 import type { Project } from '../../types'
@@ -29,15 +29,7 @@ export default function Projects() {
         )}
       </div>
 
-      <div className="flex flex-col gap-8">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            onClick={project.detail ? () => setSelected(project) : undefined}
-          />
-        ))}
-      </div>
+      <ProjectCarousel projects={projects} onSelect={setSelected} />
 
       <AnimatePresence>
         {selected && (
