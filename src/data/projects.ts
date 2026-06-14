@@ -37,6 +37,20 @@ export const projects: Project[] = [
     thumbnail: '/projects/admin-thumb.jpg',
     techTags: ['Next.js', 'Prisma', 'PostgreSQL', 'TypeScript'],
     sourceUrl: 'https://github.com/lib122223/ecommerce-admin',
+    detail: {
+      background: {
+        zh: '电商平台需要一个高效的后台管理系统来管理商品、订单和用户数据。',
+        en: 'An e-commerce platform needed an efficient admin panel for managing products, orders, and user data.',
+      },
+      approach: {
+        zh: '基于 Next.js App Router 构建，Prisma ORM 管理数据库，PostgreSQL 存储核心业务数据。',
+        en: 'Built with Next.js App Router, Prisma ORM for database management, PostgreSQL for core business data.',
+      },
+      result: {
+        zh: '支持 10万+ 商品管理，订单处理速度提升 3 倍，后台页面加载 < 1s。',
+        en: 'Supports 100K+ product management, 3x order processing improvement, admin page load < 1s.',
+      },
+    },
   },
   {
     id: 'project-3',
@@ -48,5 +62,19 @@ export const projects: Project[] = [
     thumbnail: '/projects/cli-thumb.jpg',
     techTags: ['Node.js', 'TypeScript', 'Commander.js'],
     sourceUrl: 'https://github.com/lib122223/cli-tool',
+    detail: {
+      background: {
+        zh: '团队每个新项目都需要手动搭建目录结构和配置，重复工作多且容易出错。',
+        en: 'Every new project required manual directory scaffolding and configuration, leading to repetitive work and errors.',
+      },
+      approach: {
+        zh: '使用 Commander.js 解析 CLI 参数，结合 EJS 模板引擎动态生成代码文件。',
+        en: 'Used Commander.js for CLI argument parsing with EJS templates for dynamic code generation.',
+      },
+      result: {
+        zh: '新项目初始化从 30 分钟缩短到 30 秒，团队成员广泛采用。',
+        en: 'Reduced project initialization from 30 minutes to 30 seconds, widely adopted by the team.',
+      },
+    },
   },
 ]

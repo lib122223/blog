@@ -6,9 +6,10 @@ type Lang = 'zh' | 'en'
 
 interface Props {
   project: Project
+  onClick?: () => void
 }
 
-export default function ProjectCard({ project }: Props) {
+export default function ProjectCard({ project, onClick }: Props) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language as Lang
 
@@ -18,7 +19,8 @@ export default function ProjectCard({ project }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="bg-bg-surface rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5"
+      className={`bg-bg-surface rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/5 ${onClick ? 'cursor-pointer' : ''}`}
+      onClick={onClick}
     >
       <div className="aspect-video bg-bg-elevated">
         <img
@@ -48,16 +50,23 @@ export default function ProjectCard({ project }: Props) {
           ))}
         </div>
 
-        <div className="flex gap-4 text-sm">
-          {project.sourceUrl && (
-            <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-              {t('projects.source')}
-            </a>
-          )}
-          {project.demoUrl && (
-            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-              {t('projects.demo')}
-            </a>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-4 text-sm">
+            {project.sourceUrl && (
+              <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline" onClick={(e) => e.stopPropagation()}>
+                {t('projects.source')}
+              </a>
+            )}
+            {project.demoUrl && (
+              <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline" onClick={(e) => e.stopPropagation()}>
+                {t('projects.demo')}
+              </a>
+            )}
+          </div>
+          {onClick && (
+            <span className="text-xs text-text-muted">
+              {lang === 'zh' ? '查看详情 →' : 'Details →'}
+            </span>
           )}
         </div>
       </div>
