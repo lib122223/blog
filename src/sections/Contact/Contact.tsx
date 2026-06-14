@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
-import { profile } from '../../data/profile'
+import { useProfile } from '../../hooks/ProfileContext'
 
 export default function Contact() {
   const { t } = useTranslation()
+  const { profile } = useProfile()
 
   return (
     <section id="contact" className="py-20 scroll-mt-14 text-center">

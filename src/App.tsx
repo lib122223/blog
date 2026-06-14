@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { ProfileProvider } from './hooks/ProfileContext'
 import Navbar from './components/Navbar'
 import BackToTop from './components/BackToTop'
 import SEO from './components/SEO'
@@ -8,7 +9,7 @@ import Skills from './sections/Skills/Skills'
 import Contact from './sections/Contact/Contact'
 import { HeroSkeleton, ProjectsSkeleton, SkillsSkeleton } from './components/Skeleton'
 
-export default function App() {
+function AppContent() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -42,5 +43,13 @@ export default function App() {
       </main>
       <BackToTop />
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <ProfileProvider>
+      <AppContent />
+    </ProfileProvider>
   )
 }
