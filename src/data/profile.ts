@@ -3,13 +3,13 @@ import type { Profile } from '../types'
 export const profile: Profile = {
   name: 'Your Name',
   title: {
-    zh: '全栈开发者',
-    en: 'Full-Stack Developer',
+    zh: 'Java 全栈开发者',
+    en: 'Java Full-Stack Developer',
   },
   avatar: '/avatar.jpg',
   bio: {
-    zh: '热爱构建优雅、高性能的 Web 应用，专注于 React、Node.js 和云原生技术。',
-    en: 'Passionate about building elegant, performant web applications with React, Node.js, and cloud-native technologies.',
+    zh: '热衷于用 Java Spring Boot、Spring Cloud 微服务和 React 构建优雅、高性能的网页应用。',
+    en: 'Passionate about building elegant, high-performance web applications with Java Spring Boot, Spring Cloud microservices, and React.',
   },
   email: 'hello@example.com',
   socialLinks: {
