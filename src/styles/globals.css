@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg-base: #0a0a0f;
+  --color-bg-surface: #12121a;
+  --color-bg-elevated: #1a1a24;
+  --color-bg-divider: #2a2a35;
+  --color-text-primary: #e8e8ed;
+  --color-text-secondary: #9d9dab;
+  --color-text-muted: #5c5c6e;
+  --color-accent: #64ffda;
+  --color-accent-backend: #4caf50;
+  --color-accent-frontend: #42a5f5;
+  --color-accent-tools: #ff9800;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-base text-text-primary font-sans antialiased;
+  }
+}
