@@ -28,5 +28,5 @@ export interface Project {
 
 export interface Skill {
   name: string
-  category: 'backend' | 'frontend' | 'tools'
+  category: 'backend' | 'frontend' | 'tools' | 'ai'
 }

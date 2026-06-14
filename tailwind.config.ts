@@ -16,6 +16,7 @@ export default {
         'accent-backend': '#4caf50',
         'accent-frontend': '#2563eb',
         'accent-tools': '#f59e0b',
+        'accent-ai': '#8b5cf6',
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'Fira Code', 'Cascadia Code', 'monospace'],

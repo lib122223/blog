@@ -4,7 +4,7 @@ import { skills } from '../../data/skills'
 import SkillTag from '../../components/SkillTag'
 import type { Skill } from '../../types'
 
-const categories = ['backend', 'frontend', 'tools'] as const
+const categories = ['backend', 'frontend', 'tools', 'ai'] as const
 
 const container = {
   hidden: {},

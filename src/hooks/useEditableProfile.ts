@@ -16,8 +16,12 @@ export function useEditableProfile() {
   const [profile, setProfile] = useState<Profile>(loadProfile)
 
   const updateProfile = useCallback((next: Profile) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-    setProfile(next)
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      setProfile(next)
+    } catch {
+      alert('保存失败：图片过大，请使用较小的图片或 URL 链接')
+    }
   }, [])
 
   const resetProfile = useCallback(() => {

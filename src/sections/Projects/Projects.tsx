@@ -15,17 +15,18 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-20 scroll-mt-14">
-      <div className="flex items-center justify-center gap-4 mb-12">
-        <h2 className="font-mono text-[22px] md:text-[28px] font-semibold text-text-primary">
-          {t('projects.title')}
-        </h2>
-        {import.meta.env.DEV && (
+      <div className="flex items-center justify-center mb-12">
+        {import.meta.env.DEV ? (
           <button
             onClick={() => setEditing(true)}
-            className="text-xs text-text-muted hover:text-accent transition-colors"
+            className="font-mono text-[22px] md:text-[28px] font-semibold text-text-primary hover:text-accent transition-colors"
           >
-            &#9998; 编辑
+            {t('projects.title')}
           </button>
+        ) : (
+          <h2 className="font-mono text-[22px] md:text-[28px] font-semibold text-text-primary">
+            {t('projects.title')}
+          </h2>
         )}
       </div>
 

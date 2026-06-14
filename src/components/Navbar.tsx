@@ -26,14 +26,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-12 md:h-14 bg-bg-elevated/80 backdrop-blur-sm border-b border-bg-divider">
-      <div className="max-w-3xl mx-auto px-5 h-full flex items-center justify-between">
-        <button
-          onClick={() => handleClick('hero')}
-          className="font-mono text-lg font-semibold text-text-primary tracking-tight"
-        >
-          {'<Dev />'}
-        </button>
-
+      <div className="max-w-3xl mx-auto px-5 h-full flex items-center justify-end">
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-6">
           {NAV_KEYS.map((key) => (

@@ -9,7 +9,8 @@
     "title": "技能",
     "backend": "后端",
     "frontend": "前端",
-    "tools": "工具与平台"
+    "tools": "工具与平台",
+    "ai": "AI 工具"
   },
   "projects": {
     "title": "项目",

@@ -197,13 +197,34 @@ function Field({ label, value, onChange }: { label: string; value: string; onCha
   )
 }
 
+function compressImage(file: File, maxW: number, maxH: number, quality: number): Promise<string> {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      const img = new Image()
+      img.onload = () => {
+        let w = img.width
+        let h = img.height
+        if (w > maxW) { h *= maxW / w; w = maxW }
+        if (h > maxH) { w *= maxH / h; h = maxH }
+        const canvas = document.createElement('canvas')
+        canvas.width = Math.round(w)
+        canvas.height = Math.round(h)
+        canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height)
+        resolve(canvas.toDataURL('image/jpeg', quality))
+      }
+      img.src = reader.result as string
+    }
+    reader.readAsDataURL(file)
+  })
+}
+
 function ImageField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-    const reader = new FileReader()
-    reader.onload = () => onChange(reader.result as string)
-    reader.readAsDataURL(file)
+    const compressed = await compressImage(file, 1600, 1200, 0.8)
+    onChange(compressed)
   }
 
   return (

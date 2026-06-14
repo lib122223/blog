@@ -115,19 +115,11 @@ export default function ProjectCarousel({ projects, onSelect }: Props) {
               transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
               className={currImgClass}
             >
-              <div className="w-full h-full cursor-pointer group" onClick={() => onSelect(curr)}>
+              <div className="w-full h-full cursor-pointer group relative" onClick={() => onSelect(curr)}>
                 <img src={curr.thumbnail} alt={curr.title} className="w-full h-full object-contain" />
-                <div className="absolute bottom-0 inset-x-0 flex items-end justify-between p-6 md:p-8">
-                  <div>
-                    <h3 className="font-mono text-lg md:text-xl font-semibold text-text-primary">
-                      {curr.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-text-secondary mt-1 max-w-md">
-                      {curr.description[lang]}
-                    </p>
-                  </div>
-                  <span className="shrink-0 ml-4 text-xs text-text-muted group-hover:text-accent transition-colors">
-                    {lang === 'zh' ? '查看详情 →' : 'Details →'}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="bg-bg-base/80 backdrop-blur-sm text-text-primary px-5 py-2.5 rounded-full text-sm font-mono">
+                    {lang === 'zh' ? '查看详情' : 'View Details'}
                   </span>
                 </div>
               </div>

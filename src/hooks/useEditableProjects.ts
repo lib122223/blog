@@ -15,10 +15,18 @@ function loadProjects(): Project[] {
 export function useEditableProjects() {
   const [projects, setProjects] = useState<Project[]>(loadProjects)
 
+  const saveProjects = (next: Project[]) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+    } catch {
+      alert('保存失败：图片过大，请使用较小的图片或 URL 链接')
+    }
+  }
+
   const updateProject = useCallback((id: string, data: Project) => {
     setProjects((prev) => {
       const next = prev.map((p) => (p.id === id ? data : p))
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      saveProjects(next)
       return next
     })
   }, [])
@@ -26,7 +34,7 @@ export function useEditableProjects() {
   const deleteProject = useCallback((id: string) => {
     setProjects((prev) => {
       const next = prev.filter((p) => p.id !== id)
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      saveProjects(next)
       return next
     })
   }, [])
@@ -42,7 +50,7 @@ export function useEditableProjects() {
     }
     setProjects((prev) => {
       const next = [...prev, newProject]
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      saveProjects(next)
       return next
     })
   }, [])
