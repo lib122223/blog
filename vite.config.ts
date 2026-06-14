@@ -4,4 +4,8 @@ import { imagetools } from 'vite-imagetools'
 
 export default defineConfig({
   plugins: [react(), imagetools()],
+  server: {
+    port: 5176,
+    strictPort: true,
+  },
 })
