@@ -2,9 +2,9 @@
 
 ## 整体概览
 
-- 项目周期：2026-06-14（当天完成 6 个阶段）
-- 提交次数：17 次
-- 技术栈：React 19 + TypeScript + Vite 8 + Tailwind CSS 3 + Framer Motion + react-i18next + react-helmet-async + vite-imagetools
+- 项目周期：2026-06-14
+- 提交次数：20 次
+- 技术栈：React 19 + TypeScript + Vite 8 + Tailwind CSS 3 + Framer Motion 12 + react-i18next 17 + react-helmet-async 3 + vite-imagetools 10
 - 分支策略：main 分支，小功能 → 验证 → 提交 → 推送
 
 ---
@@ -44,7 +44,7 @@
 
 - 右下角固定 44px 圆形，accent 背景 + SVG 箭头
 - `window.scrollY > innerHeight` 判断显隐，transition-opacity 渐显 300ms
-- **坑：** 占位 Section 太短（只有一句 `<p>`），页面总高度不足一屏，按钮无法触发。给 Section 加了 `min-h-screen` 解决
+- **坑：** 占位 Section 太短，页面总高度不足一屏，按钮无法触发 → 给 Section 加了 `min-h-screen`
 
 ---
 
@@ -53,27 +53,24 @@
 ### 4.1 类型定义 + 数据文件（`7620b4e`）
 
 - Profile / Project / Skill 三个接口，双语字段结构 `{ zh, en }`
-- 占位数据（姓名/头像/技能/项目），后续替换为真实信息
 
 ### 4.2 Hero 区块（`bb79541`）
 
-- 头像 `w-[120px]` 圆形，accent 边框，加载失败显示首字母
-- 姓名 JetBrains Mono 48px，职称 + 简介，底部 bounce 箭头
+- 头像 `w-[120px]` 圆形，accent 边框，加载失败显示首字母 fallback
+- 姓名 JetBrains Mono 48px + 底部 bounce 箭头
 
 ### 4.3 Skills 区块（`51cb82b`）
 
-- SkillTag：三色映射（backend=#4caf50 / frontend=#42a5f5 / tools=#ff9800），15% 透明度背景
+- SkillTag 三色映射（backend=绿 / frontend=蓝 / tools=橙），15% 透明度背景
 - Framer Motion `staggerChildren: 0.05s` 逐个渐入
 
 ### 4.4 Projects 区块（`9e4e5ff`）
 
 - ProjectCard：bg-surface 卡片，16:9 截图区，hover 上浮 4px + 阴影
-- 技术标签行 + 源码/演示链接
 
 ### 4.5 Contact 区块（`70e911f`）
 
-- 邮箱 mailto 链接（JetBrains Mono）+ GitHub/LinkedIn/Twitter SVG 图标
-- hover accent 色过渡
+- 邮箱 mailto 链接 + GitHub/LinkedIn SVG 图标
 
 ---
 
@@ -81,7 +78,7 @@
 
 **关键决策：**
 - 静态 UI 文案（导航、标题）用 JSON 翻译字典 + `t('key')`
-- 个人数据（姓名、简介、项目描述）用 data 文件的 `{ zh, en }` 字段 + `i18n.language` 取对应值，不在 JSON 中重复
+- 个人数据（姓名、简介、项目描述）用 data 文件的 `{ zh, en }` 字段 + `i18n.language` 取值
 - LanguageSwitch 接入 Navbar 桌面端和移动端菜单
 - 默认中文，localStorage 持久化偏好
 
@@ -92,67 +89,85 @@
 ### 6.1 项目详情弹窗（`5e107ad`）
 
 - AnimatePresence + scale 0.9→1.0 进出场动画
-- 遮罩层 80% 透明度 + body 禁止滚动
-- 关闭：Esc / 点击遮罩 / 点击 ✕
-- 源码/演示链接 `stopPropagation` 防止误触弹窗
+- Esc / 遮罩 / ✕ 三种关闭，body 禁止滚动
 - 卡片底部加「查看详情 →」提示
 
 ### 6.2 骨架屏（`a5f2f58`）
 
-- App 级别统一管理 loading 状态，1.5s 延迟
-- Hero/Projects/Skills 三个骨架变体
-- **踩坑：** 最初每个 Section 独立 setTimeout（400-800ms），HMR 下几乎看不到。改为 App 级别 1.5s 延迟才可见
+- App 级别统一管理，1.5s 延迟
+- **坑：** 最初每个 Section 独立延迟（400-800ms），HMR 下几乎看不到
 
 ### 6.3 SEO（`4deeaa8`）
 
-- **踩坑：** react-helmet-async v3 API 大变，不再用子元素写法
-  - v2: `<Helmet><title>X</title></Helmet>`
-  - v3: `<Helmet title="X" meta={[{...}]} />`
-- robots.txt + sitemap.xml 放 `public/` 根目录
+- **坑：** react-helmet-async v3 API 大变 → 子元素改 props
+- robots.txt + sitemap.xml
 
 ### 6.4 图片优化 + 构建验证（`93e7c9d`）
 
-- vite-imagetools 已配置，等实际图片添加后生效
 - 生产构建：HTML 0.73KB / CSS 13KB gzip 3.6KB / JS 409KB gzip 130KB
 
 ---
 
-## P1 后续：在线编辑功能（`f388eae`）
+## 增量功能 1：在线编辑（`f388eae`）
 
 ### 需求背景
 
-项目最初通过 `src/data/` 静态文件管理数据，修改信息需要改代码。用户需要不写代码就能编辑个人资料和项目。
+最初通过 `src/data/` 静态文件管理数据，修改信息需要改代码。用户需要不写代码就能编辑。
 
-### 方案设计
+### 方案
 
-- 纯前端方案，数据存 localStorage，无后端
-- 使用 `import.meta.env.DEV` 限定开发模式可见，生产环境完全不可访问
-- React Context 在 Hero 和 Contact 之间共享 profile 数据
+- 纯前端，localStorage 持久化，无后端
+- `import.meta.env.DEV` 限定开发模式可见，生产构建自动移除
+- React Context 在 Hero 和 Contact 之间共享编辑数据
 
 ### 编辑入口
 
 - **个人信息**：Hero 区姓名 hover 显示 ✎，点击打开 ProfileEditor
 - **项目管理**：项目标题旁 ✎ 编辑按钮，点击打开 ProjectEditor
 
-### 编辑功能
+### 功能细节
 
-**个人信息编辑器：**
-- 姓名、职称（中/英）、简介（中/英）、邮箱、GitHub、LinkedIn
-- 头像：URL 粘贴 + 本地上传（FileReader → base64 → localStorage）
-- 保存 / 恢复默认
-
-**项目编辑器：**
-- 项目列表管理：展开编辑、删除、新增
-- 每项可编辑：名称、描述（中/英）、截图（上传+URL）、技术标签、源码/演示链接、详情内容（背景/方案/成果 中英双语）
+- 头像/截图：URL 粘贴 + 本地上传（FileReader → base64 → localStorage）
 - 技术标签逗号分隔输入，自动转数组
-- 新增项目自动生成唯一 id，detail 字段自动初始化
-- 保存 / 恢复默认
+- 新增项目自动生成 id，detail 字段自动初始化
+- 一键恢复默认数据
 
 ### 踩坑
 
-- 两个组件（Hero、Contact）需要共享同一份编辑后 profile，初始各自 useEditableProfile 导致状态不同步 → 抽 ProfileContext 解决
-- Profile 和 Projects 是独立数据，分开两个 Context 各管各的
-- 项目详情弹窗的数据需随编辑同步更新 → 弹窗从 Projects 的状态派生，始终保持一致
+- 两个组件各自 useState 导致状态不同步 → 抽 ProfileContext 共享
+
+---
+
+## 增量功能 2：项目轮播图 + 浅色主题（`2abc4eb`）
+
+### 需求演变
+
+用户觉得纵向卡片列表浏览过于普通 → 尝试全屏画廊弹窗（不满意）→ 尝试全屏滚动（不满意）→ 最终定为轮播图。
+
+### 方案
+
+- 中间大图占主体（~64%），左右两侧各露出相邻项目的 20% 边缘（半透明）
+- 鼠标移至左/右边缘 → 出现跟随鼠标的 accent 色浮动按钮（"← 上一个"/"下一个 →"）
+- 停留在边缘 0.8 秒自动切换，点击立即切换
+- 键盘 ← → 也可切换
+- 项目标题和描述在轮播下方居中展示
+- 点击中间图片 → 弹出详情弹窗
+
+### 浅色主题
+
+- bg-base: #f5f4f0 暖纸白
+- bg-surface: #ebeae5 微暖浅灰
+- accent: #0066cc 专业蓝
+- 参考 Squarespace 简洁风格
+- **坑：** Tailwind 配置变更后需重启 dev server 才生效
+
+### 三次方案迭代
+
+| 方案 | 描述 | 结果 |
+|------|------|------|
+| A | 全屏弹出画廊，左右滑动 | 用户不满意 |
+| B | 页面内 100vh 滚屏，左图右文 | 用户不满意 |
+| C | 轮播图 + 边缘窥视 + 跟随按钮 | ✅ 通过 |
 
 ---
 
@@ -160,57 +175,37 @@
 
 | 教训 | 场景 |
 |------|------|
-| npm 包大版本 API 可能不兼容 | react-helmet-async v2→v3 子元素改 props |
-| 静态站点 UI 变化缺乏数据场景 | 骨架屏需人为延迟才能看到，占位 Section 太短 BackToTop 不触发 |
-| Windows 工具链差异 | `pkill` 不可用，`taskkill //F //IM node.exe` 替代 |
-| 端口管理 | 固定端口 + `strictPort` 避免每次换端口 |
-| 工作流纪律 | 应先确认方案再写码，提前规划小功能拆分 |
-| 状态共享 | 多个组件消费同一份 localStorage 数据需用 Context，各自 useState 会导致不同步 |
+| npm 包大版本 API 可能不兼容 | react-helmet-async v2→v3 |
+| 静态站点 UI 缺乏数据场景 | 骨架屏需人为延迟、Section 太短按钮不触发 |
+| Windows 工具链差异 | `pkill` 不可用，用 `taskkill` 替代 |
+| 端口管理 | 固定端口 + `strictPort: true` |
+| 状态共享 | 多组件消费同一 localStorage 需用 Context |
+| Tailwind 配置 | 改 config 后需重启 dev server |
+| 轮播交互体验 | 跟随鼠标按钮 + 边缘窥视 + 自动切换 组合优于简单箭头 |
 
 ---
 
 ## 功能完成清单
-
-全部 11 个需求 + 2 个增量功能：
 
 | # | 功能 | 优先级 | 状态 |
 |---|------|--------|------|
 | F1 | Hero 区 | P0 | ✅ |
 | F2 | 个人介绍 | P0 | ✅ |
 | F3 | 技能展示 | P0 | ✅ |
-| F4 | 项目展示 | P0 | ✅ |
+| F4 | 项目轮播图 | P0 | ✅ |
 | F5 | 响应式布局 | P0 | ✅ |
-| F6 | 暗色主题 | P0 | ✅ |
+| F6 | 暖色主题 | P0 | ✅ |
 | F7 | 浮动导航 + 返回顶部 | P0 | ✅ |
 | F8 | 中英双语切换 | P1 | ✅ |
 | F9 | SEO 基础 | P1 | ✅ |
 | F10 | 骨架屏 + 性能优化 | P1 | ✅ |
 | F11 | 项目详情弹窗 | P1 | ✅ |
-| +1 | 个人信息在线编辑 | 增量 | ✅ |
-| +2 | 项目在线管理 | 增量 | ✅ |
+| F12 | 个人信息在线编辑 | 增量 | ✅ |
+| F13 | 项目在线管理 | 增量 | ✅ |
 
 ## 待用户自行完成
 
-- 通过在线编辑器填入真实个人信息和项目数据（已无需改代码）
+- 通过在线编辑器填入真实个人信息和项目数据
 - 在编辑器中上传头像和项目截图（支持本地上传 + URL）
-- 更新 `src/components/SEO.tsx` 和 `public/sitemap.xml` 中的域名
-- Vercel 部署（导入 GitHub 仓库）
-
-| 教训 | 场景 |
-|------|------|
-| npm 包大版本 API 可能不兼容 | react-helmet-async v2→v3 子元素改 props |
-| 静态站点 UI 变化缺乏数据场景 | 骨架屏需人为延迟才能看到，占位 Section 太短 BackToTop 不触发 |
-| Windows 工具链差异 | `pkill` 不可用，`taskkill //F //IM node.exe` 替代 |
-| 端口管理 | 固定端口 + `strictPort` 避免每次换端口 |
-| 工作流纪律 | 应先确认方案再写码，提前规划小功能拆分 |
-
----
-
-## 待用户自行完成
-
-- 替换 `src/data/profile.ts` 真实个人信息
-- 替换 `src/data/projects.ts` 真实项目数据
-- 替换 `src/data/skills.ts` 真实技能列表
-- 放置头像和项目截图到 `public/` 下
-- 更新 `src/components/SEO.tsx` 和 `public/sitemap.xml` 中的域名
-- Vercel 部署（导入 GitHub 仓库）
+- 更新 SEO 组件中的域名
+- Vercel 部署
