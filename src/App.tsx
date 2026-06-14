@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar'
+import BackToTop from './components/BackToTop'
 import Hero from './sections/Hero/Hero'
 import Projects from './sections/Projects/Projects'
 import Skills from './sections/Skills/Skills'
@@ -14,6 +15,7 @@ export default function App() {
         <Skills />
         <Contact />
       </main>
+      <BackToTop />
     </>
   )
 }
